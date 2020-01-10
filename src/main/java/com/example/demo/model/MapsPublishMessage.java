@@ -8,13 +8,17 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-class MapsPublishMessage {
+public class MapsPublishMessage {
     @Expose
-    String deviceId;
+    String iotDeviceId;
     @Expose
     Integer step;
     @Expose
     Double longitude;
     @Expose
     Double latitude;
+    @Expose
+    Double power;
+    @Expose
+    Boolean sleep;
 }

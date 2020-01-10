@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <title>DEMO | Test_Api</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="alert alert-warning">
+        <div class="form-group form-inline">
+            <label for="chostAPI">HOST API URL: </label>
+            <input class="form-control ml-4" size="40" id="hostAPI" class="form-control" value="http://localhost/test_api" />
+        </div>
+    </div>
+
+    <div>
+        <form id="notification">
+            <fieldset>
+                <legend>
+                    Send Mqtt
+                </legend>
+                <div>
+                    <table align="center">
+                        <tr>
+                            <td><label>※Iot Device ID</label></td>
+                            <td><input class="form-control" name="iotDeviceId" type="text"/></td>
+                            <td><label>※Power</label></td>
+                            <td><input class="form-control" name="power" type="number"/></td>
+                            <td><label>※Step</label></td>
+                            <td><input class="form-control" name="step" type="number"/></td>
+                            <td><label>※Sleep</label></td>
+                            <td><input class="form-control" name="sleep" type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>※Longitude</label></td>
+                            <td><input class="form-control" name="longitude" type="number"/></td>
+                            <td><label>※Latitude</label></td>
+                            <td><input class="form-control" name="latitude" type="number"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>※type(test)</label></td>
+                            <td><input class="form-control" name="type" type="text"/></td>
+                        </tr>
+                    </table>
+                    <div align="center">
+                        <button class="btn btn-primary" id="btnSendNotification" type="button">Send mqtt</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    const savedHostAPI = localStorage.getItem("savedHostAPI");
+    if (savedHostAPI) {
+        $('#hostAPI').val(savedHostAPI);
+    }
+    let hostAPI = $('#hostAPI').val();
+    $('#hostAPI').on('input', function() {
+        localStorage.setItem("savedHostAPI", $(this).val());
+        hostAPI = $(this).val();
+    });
+
+
+    $('#btnSendNotification').click(function () {
+        $.ajax({
+            url: hostAPI + "/publish",
+            method: "post",
+            data: $('#notification').serialize(),
+            content_type: "application/json",
+            success: function (str) {
+                alert(str);
+            },
+            error: function () {
+                alert("Failed!")
+            }
+        })
+    });
+</script>
+</html>
