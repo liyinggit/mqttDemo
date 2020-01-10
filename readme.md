@@ -1,3 +1,7 @@
+
+doc中有nginx配置文件，启动后 输入http://localhost/test.html 即可有测试页面
+
+
 ## mqtt 测试服务器搭建
     参照demo：https://github.com/gulteking/spring-boot-mqtt-sample
 1. 准备 docker 环境
